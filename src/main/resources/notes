@@ -1,0 +1,27 @@
+TODO
+
+1) stores passwords in encrypted fashion
+2) generate auth token on Login
+
+####
+
+Entities
+1) Users (DONE)
+2) User Address
+3) Categories
+4) Products
+5) Payments
+6) User Orders
+7) User Payments
+8) User Cart
+9) User Roles - MASTER, ADMIN, CUSTOMER (DONE)
+
+1) admin role can do CRUD operations on products
+2) Customer role can purchase products
+3) Customer can view products, filter by category and product name
+4) Customer can add product to cart.
+5) Customer can view past orders.
+6) Customer can make payments for a order.
+7) Customer can delete account.
+8) Customer can delete ADD/DELETE user role.
+9) Master role can view all users, orders and all payments .
