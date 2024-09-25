@@ -14,7 +14,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -53,7 +53,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id, String name, String description, Boolean isActive) {
+    public Category(Long id, String name, String description, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.description = description;

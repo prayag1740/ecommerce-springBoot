@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "user_roles")
@@ -13,12 +15,19 @@ public class UserRole {
     public static final int ADMIN_ROLE = 2 ;
     public static final int MASTER_ROLE = 3 ;
 
+    private  static Map<String, Integer> roleMapping = new HashMap<>() {{
+        put("USER_ROLE", USER_ROLE);
+        put("ADMIN_ROLE", ADMIN_ROLE);
+       put("MASTER_ROLE", MASTER_ROLE);
+    }};
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id ;
 
     @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne
     private User user ;
 
     @Column(name = "role_id", nullable = false)
@@ -42,6 +51,10 @@ public class UserRole {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    public static int getRoleId(String roleName) {
+        return roleMapping.get(roleName);
     }
 
     public UserRole(Long id, User user, Integer roleId, Boolean isActive) {
