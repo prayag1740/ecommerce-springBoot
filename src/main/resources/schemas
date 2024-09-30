@@ -29,6 +29,8 @@ CREATE TABLE `user_roles` (
     FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE
 );
 
+ALTER TABLE `user_roles` add column `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST ;
+
 ----- categories
 
 CREATE TABLE `categories` (

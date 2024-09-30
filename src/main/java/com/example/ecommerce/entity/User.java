@@ -14,21 +14,21 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private Long userId ;
 
     @Size(min=5, max=20, message = "First name must be between 5 and 20 characters")
-    @Pattern(regexp = "^[a-zA-Z]]*$", message = "First name cannot contain numbers or special characters")
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "First name cannot contain numbers or special characters")
     @Column(name = "first_name")
     private String firstName ;
 
     @Size(min=5, max=20, message = "Last name must be between 5 and 20 characters")
-    @Pattern(regexp = "^[a-zA-Z]]*$", message = "Last name cannot contain numbers or special characters")
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "Last name cannot contain numbers or special characters")
     @Column(name = "last_name")
     private String lastName ;
 
-    @Size(min = 5 , max = 20, message = "Mobile Number must exactly be 10 digits long")
-    @Pattern(regexp = "^[d{10}$]", message = "Mobile number must only contain digits")
+    @Size(min = 10 , max = 10, message = "Mobile Number must exactly be 10 digits long")
+    @Pattern(regexp = "^\\d{10}$", message = "Mobile number must only contain digits")
     @Column(nullable = false, name = "mobile_number")
     private String mobileNumber ;
 

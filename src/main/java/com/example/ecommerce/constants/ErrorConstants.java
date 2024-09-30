@@ -11,4 +11,7 @@ public class ErrorConstants {
     public static ErrorInfo USER_NOT_FOUND = new ErrorInfo(2, "User does not exist");
     public static ErrorInfo USER_ROLE_ALREADY_EXISTS = new ErrorInfo(2, "User Role already exists");
 
+    //role
+    public static ErrorInfo INVALID_ROLE = new ErrorInfo(3, "Invalid Role");
+
 }

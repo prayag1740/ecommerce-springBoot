@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service //autmatically intializes the service instance
@@ -32,11 +33,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User createUserWithRole(User user, String roleName) {
         //check if user with roleName already exists
-        Optional<User> alreadyExists = searchUserwithEmailAndRole(user.getEmail(), roleName);
-
-        if (alreadyExists != null) {
+        Boolean alreadyExists = checkIfUserExistswithEmailAndRole(user.getEmail(), roleName);
+        if (alreadyExists) {
             ErrorInfo err = ErrorConstants.USER_ROLE_ALREADY_EXISTS;
-            throw new CustomException(HttpStatus.NOT_FOUND, err.getStatusCode(), err.getErrorMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, err.getStatusCode(), err.getErrorMessage());
         }
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
@@ -56,30 +56,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> searchUserwithEmailAndRole(String email, String roleName) {
-        roleName = roleName.toLowerCase();
-        int roleId = UserRole.getRoleId(roleName);
+    public Boolean checkIfUserExistswithEmailAndRole(String email, String roleName) {
+        Integer roleId = UserRole.getRoleId(roleName);
+
+        if (roleId ==  null) {
+            ErrorInfo err = ErrorConstants.INVALID_ROLE;
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, err.getStatusCode(), err.getErrorMessage());
+        }
+
         Optional<User> user = userRepository.findByEmail(email) ;
 
-        // throw error if user does not exist
-        if (user == null) {
-            ErrorInfo err = ErrorConstants.USER_NOT_FOUND;
-            throw new CustomException(HttpStatus.NOT_FOUND, err.getStatusCode(), err.getErrorMessage());
+        if (user.isEmpty()) {
+            return false;
         }
-
         List<UserRole> userRoles = userRoleRepository.findByUser(user) ;
+        if (userRoles.isEmpty()) {
+            return false;
+        }
 
         for (UserRole ur : userRoles) {
-            if (ur.getRoleId() == roleId) {
-                ErrorInfo err = ErrorConstants.USER_ROLE_ALREADY_EXISTS ;
-                throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, err.getStatusCode(), err.getErrorMessage());
+            if (Objects.equals(ur.getRoleId(), roleId)) {
+                return true ;
             }
         }
-        return user ;
-    }
-
-    @Override
-    public Boolean checkIfUserExistswithEmailAndRole(User user, String roleName) {
-        return null;
+        return false ;
     }
 }

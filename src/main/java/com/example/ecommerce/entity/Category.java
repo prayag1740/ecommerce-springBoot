@@ -35,15 +35,16 @@ public class Category {
     protected void onCreate() {
         createdAt = LocalDateTime.now() ;
         updatedAt = LocalDateTime.now();
+        processName();
     }
 
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+        processName();
     }
 
-    @PreUpdate
-    @PrePersist
+
     protected void processName() {
         if (name != null) {
             name = name.toUpperCase() ;

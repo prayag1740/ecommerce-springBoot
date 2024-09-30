@@ -25,3 +25,14 @@ Entities
 7) Customer can delete account.
 8) Customer can delete ADD/DELETE user role.
 9) Master role can view all users, orders and all payments .
+
+
+_________________________________
+
+
+Temp
+1) check for security config and understand
+2) check for search text global
+3) check for raising validation errors properly
+4) adding key in api response (DONE)
+5) What is T data structure (DONE)

@@ -9,9 +9,7 @@ public interface UserService {
     User createUserWithRole(User user, String roleName) ;
     User getUserById(Long id);
 
-    Optional<User> searchUserwithEmailAndRole(String Email, String roleName);
-
-    Boolean checkIfUserExistswithEmailAndRole(User user, String roleName);
+    Boolean checkIfUserExistswithEmailAndRole(String Email, String roleName);
 
 
 

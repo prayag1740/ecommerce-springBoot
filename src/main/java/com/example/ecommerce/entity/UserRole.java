@@ -11,12 +11,12 @@ import java.util.Map;
 @Table(name = "user_roles")
 public class UserRole {
 
-    public static final int USER_ROLE = 1 ;
+    public static final int CUSTOMER_ROLE = 1 ;
     public static final int ADMIN_ROLE = 2 ;
     public static final int MASTER_ROLE = 3 ;
 
     private  static Map<String, Integer> roleMapping = new HashMap<>() {{
-        put("USER_ROLE", USER_ROLE);
+        put("CUSTOMER_ROLE", CUSTOMER_ROLE);
         put("ADMIN_ROLE", ADMIN_ROLE);
        put("MASTER_ROLE", MASTER_ROLE);
     }};
@@ -31,7 +31,7 @@ public class UserRole {
     private User user ;
 
     @Column(name = "role_id", nullable = false)
-    private Integer roleId = USER_ROLE ;
+    private Integer roleId = CUSTOMER_ROLE ;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
@@ -53,7 +53,7 @@ public class UserRole {
         updatedAt = LocalDateTime.now();
     }
 
-    public static int getRoleId(String roleName) {
+    public static Integer getRoleId(String roleName) {
         return roleMapping.get(roleName);
     }
 
